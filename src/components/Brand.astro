@@ -1,0 +1,40 @@
+---
+interface Props {
+  compact?: boolean;
+  onDark?: boolean;
+}
+
+const { compact = false, onDark = false } = Astro.props;
+---
+
+<a class:list={['brand', { compact, 'on-dark': onDark }]} href="#inicio" aria-label="Cita Suite, volver al inicio">
+  <span class="brand-mark" aria-hidden="true"></span>
+  <span class="brand-name">Cita Suite</span>
+</a>
+
+<style>
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 760;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+  }
+
+  .brand.on-dark { color: white; }
+  .brand-mark {
+    display: block;
+    flex: none;
+    width: 52px;
+    height: 52px;
+    background: url('/images/logo-cita-suite.png') center / 145% no-repeat;
+  }
+  .compact .brand-mark { width: 48px; height: 48px; }
+
+  @media (max-width: 420px) {
+    .brand-name { font-size: 17px; }
+  }
+</style>

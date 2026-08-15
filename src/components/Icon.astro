@@ -1,0 +1,52 @@
+---
+interface Props {
+  name:
+    | 'arrow-right'
+    | 'calendar'
+    | 'check'
+    | 'chevron-down'
+    | 'clock'
+    | 'file'
+    | 'folder'
+    | 'menu'
+    | 'message'
+    | 'shield'
+    | 'sparkles'
+    | 'tooth'
+    | 'users'
+    | 'x';
+  size?: number;
+  strokeWidth?: number;
+  class?: string;
+}
+
+const { name, size = 20, strokeWidth = 1.8, class: className } = Astro.props;
+---
+
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  {name === 'arrow-right' && <><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></>}
+  {name === 'calendar' && <><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></>}
+  {name === 'check' && <path d="m5 12 4 4L19 6"/>}
+  {name === 'chevron-down' && <path d="m6 9 6 6 6-6"/>}
+  {name === 'clock' && <><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></>}
+  {name === 'file' && <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></>}
+  {name === 'folder' && <><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M3 10h18"/></>}
+  {name === 'menu' && <><path d="M4 7h16M4 12h16M4 17h16"/></>}
+  {name === 'message' && <><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/><path d="M8 9h8M8 13h5"/></>}
+  {name === 'shield' && <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></>}
+  {name === 'sparkles' && <><path d="m12 3-1.2 3.3L7.5 7.5l3.3 1.2L12 12l1.2-3.3 3.3-1.2-3.3-1.2Z"/><path d="m5 13-.8 2.2L2 16l2.2.8L5 19l.8-2.2L8 16l-2.2-.8ZM19 14l-.7 1.8-1.8.7 1.8.7L19 19l.7-1.8 1.8-.7-1.8-.7Z"/></>}
+  {name === 'tooth' && <path d="M12 3c-2.5 0-3.4-1-5.2-1C4 2 2 4.6 2.4 7.7c.4 2.7 2 4.5 2.5 7.6.5 3.4 1 6.7 3.1 6.7 1.8 0 1.8-5.5 4-5.5s2.2 5.5 4 5.5c2.1 0 2.6-3.3 3.1-6.7.5-3.1 2.1-4.9 2.5-7.6C22 4.6 20 2 17.2 2 15.4 2 14.5 3 12 3Z"/>}
+  {name === 'users' && <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></>}
+  {name === 'x' && <><path d="m6 6 12 12M18 6 6 18"/></>}
+</svg>

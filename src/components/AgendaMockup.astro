@@ -1,0 +1,174 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<div class:list={['agenda-window', { compact }]} aria-label="Vista de agenda de Cita Suite">
+  <div class="agenda-sidebar">
+    <div class="mini-brand"><span>CS</span><strong>Cita Suite</strong></div>
+    <nav aria-label="Navegación representativa del producto">
+      <span class="active"><Icon name="calendar" size={16} /> Agenda</span>
+      <span><Icon name="clock" size={16} /> Recordar</span>
+      <span><Icon name="users" size={16} /> Pacientes</span>
+      <span><Icon name="folder" size={16} /> Archivos</span>
+    </nav>
+    <div class="sidebar-profile">
+      <span class="avatar">LC</span>
+      <span><strong>Consultorio</strong><small>Administración</small></span>
+    </div>
+  </div>
+
+  <div class="agenda-main">
+    <div class="agenda-topbar">
+      <div>
+        <small>AGENDA DEL CONSULTORIO</small>
+        <strong>Martes, 18 de agosto</strong>
+      </div>
+      <button type="button" tabindex="-1">+ Nuevo turno</button>
+    </div>
+
+    <div class="agenda-toolbar">
+      <span class="date-nav">‹</span>
+      <span class="today">Hoy</span>
+      <span class="date-nav">›</span>
+      <span class="professional-filter">Todos los profesionales <b>⌄</b></span>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="time-labels" aria-hidden="true">
+        <span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span><span>13:00</span>
+      </div>
+      <div class="day-column">
+        <div class="appointment a1">
+          <span class="appointment-time">09:00</span>
+          <strong>Lucía Ferraro</strong>
+          <small>Consulta · Dra. Suárez</small>
+          <em><i></i> Confirmado</em>
+        </div>
+        <div class="appointment a2">
+          <span class="appointment-time">10:30</span>
+          <strong>Martín Rojas</strong>
+          <small>Limpieza · Dr. Lima</small>
+          <em class="pending"><i></i> Por confirmar</em>
+        </div>
+        <div class="appointment a3">
+          <span class="appointment-time">12:00</span>
+          <strong>Carolina Díaz</strong>
+          <small>Tratamiento conjunto</small>
+          <div class="team-dots"><span>DS</span><span>DL</span><b>2 profesionales</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-callout callout-confirmed"><span></span>Turno confirmado</div>
+  <div class="product-callout callout-patient"><span>→</span>Ficha del paciente</div>
+</div>
+
+<style>
+  .agenda-window {
+    position: relative;
+    display: grid;
+    grid-template-columns: 154px 1fr;
+    width: 100%;
+    min-height: 500px;
+    overflow: visible;
+    color: #f8fbff;
+    background: #09182b;
+    border: 1px solid rgba(169, 191, 220, .24);
+    border-radius: 18px;
+    box-shadow: 0 34px 80px rgba(22, 36, 60, .2), 0 10px 24px rgba(22, 36, 60, .14);
+  }
+
+  .agenda-sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 14px;
+    background: #0d2038;
+    border-right: 1px solid rgba(186, 205, 228, .12);
+    border-radius: 18px 0 0 18px;
+  }
+
+  .mini-brand { display: flex; align-items: center; gap: 8px; padding: 0 5px 22px; font-size: 12px; }
+  .mini-brand span { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; color: #fff; background: linear-gradient(145deg, #6c63ff, #8b5cf6); font-size: 9px; font-weight: 800; }
+  .mini-brand strong { letter-spacing: -.02em; }
+  nav { display: grid; gap: 5px; }
+  nav span { display: flex; align-items: center; gap: 9px; padding: 10px 10px; border-radius: 9px; color: #9fb1c9; font-size: 10px; font-weight: 650; }
+  nav span.active { color: #fff; background: rgba(122, 92, 246, .2); box-shadow: inset 2px 0 #8b5cf6; }
+
+  .sidebar-profile { display: flex; align-items: center; gap: 8px; margin-top: auto; padding: 11px 6px 0; border-top: 1px solid rgba(186, 205, 228, .12); }
+  .avatar { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #203957; font-size: 8px; font-weight: 800; }
+  .sidebar-profile > span:last-child { display: grid; gap: 2px; font-size: 8px; }
+  .sidebar-profile small { color: #8296b0; font-size: 7px; }
+
+  .agenda-main { min-width: 0; padding: 23px 24px 22px; overflow: hidden; border-radius: 0 18px 18px 0; background: radial-gradient(circle at 100% 0%, rgba(79, 70, 229, .1), transparent 32%), #09182b; }
+  .agenda-topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .agenda-topbar > div { display: grid; gap: 4px; }
+  .agenda-topbar small { color: #7d91ac; font-size: 7px; font-weight: 800; letter-spacing: .11em; }
+  .agenda-topbar strong { font-size: 18px; letter-spacing: -.03em; }
+  .agenda-topbar button { min-height: 34px; padding: 0 13px; border: 0; border-radius: 9px; color: #fff; background: #7c3aed; font: inherit; font-size: 8px; font-weight: 750; box-shadow: 0 8px 18px rgba(124, 58, 237, .25); }
+
+  .agenda-toolbar { display: flex; align-items: center; gap: 6px; margin: 20px 0 13px; }
+  .agenda-toolbar > span { display: grid; place-items: center; min-height: 28px; border: 1px solid rgba(178, 197, 220, .16); border-radius: 8px; color: #b7c5d8; background: rgba(255, 255, 255, .035); font-size: 8px; }
+  .agenda-toolbar .date-nav { width: 28px; font-size: 15px; }
+  .agenda-toolbar .today { padding: 0 11px; color: #fff; }
+  .agenda-toolbar .professional-filter { display: flex; flex-direction: row; gap: 11px; margin-left: auto; padding: 0 11px; }
+
+  .agenda-grid { position: relative; display: grid; grid-template-columns: 38px 1fr; min-height: 338px; overflow: hidden; border: 1px solid rgba(178, 197, 220, .12); border-radius: 12px; background: repeating-linear-gradient(to bottom, rgba(255,255,255,.024) 0, rgba(255,255,255,.024) 66px, rgba(178,197,220,.1) 67px); }
+  .time-labels { display: grid; grid-template-rows: repeat(5, 67px); padding-top: 8px; color: #66809f; font-size: 7px; text-align: center; border-right: 1px solid rgba(178, 197, 220, .1); }
+  .day-column { position: relative; min-width: 0; }
+  .appointment { position: absolute; display: grid; grid-template-columns: 32px 1fr auto; grid-template-rows: auto auto; column-gap: 7px; align-items: center; left: 10px; right: 10px; min-height: 60px; padding: 10px 10px; border: 1px solid rgba(142, 126, 255, .44); border-left: 3px solid #8b5cf6; border-radius: 9px; background: linear-gradient(100deg, rgba(75, 62, 150, .78), rgba(29, 36, 74, .92)); box-shadow: 0 8px 18px rgba(0,0,0,.16); }
+  .appointment-time { grid-row: 1 / 3; color: #c5b9ff; font-size: 8px; font-weight: 800; }
+  .appointment strong { font-size: 9px; }
+  .appointment small { grid-column: 2; color: #aab9cd; font-size: 7px; }
+  .appointment em { grid-column: 3; grid-row: 1 / 3; display: flex; align-items: center; gap: 4px; color: #74e0bd; font-size: 7px; font-style: normal; font-weight: 700; }
+  .appointment em i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .appointment em.pending { color: #f2c76e; }
+  .appointment.a1 { top: 11px; }
+  .appointment.a2 { top: 110px; right: 42%; }
+  .appointment.a3 { top: 210px; left: 34%; min-height: 70px; }
+  .team-dots { grid-column: 3; grid-row: 1 / 3; display: flex; align-items: center; }
+  .team-dots span { display: grid; place-items: center; width: 20px; height: 20px; margin-left: -5px; border: 2px solid #2d2b59; border-radius: 50%; background: #8b5cf6; font-size: 6px; font-weight: 800; }
+  .team-dots span:first-child { margin-left: 0; background: #0d9488; }
+  .team-dots b { margin-left: 5px; color: #bcb7ea; font-size: 6px; font-weight: 650; }
+
+  .product-callout { position: absolute; z-index: 3; display: flex; align-items: center; gap: 7px; min-height: 30px; padding: 0 11px; border: 1px solid rgba(18, 42, 74, .1); border-radius: 99px; color: #18324e; background: rgba(255,255,255,.96); box-shadow: 0 12px 34px rgba(28, 48, 76, .18); font-size: 8px; font-weight: 750; white-space: nowrap; }
+  .product-callout span { width: 7px; height: 7px; border-radius: 50%; background: #20a884; box-shadow: 0 0 0 3px rgba(32,168,132,.14); }
+  .callout-confirmed { top: 108px; right: -20px; }
+  .callout-patient { right: 26px; bottom: -14px; }
+  .callout-patient span { display: grid; place-items: center; width: 16px; height: 16px; color: white; background: #7c3aed; box-shadow: none; }
+
+  .compact { min-height: 420px; box-shadow: 0 22px 60px rgba(12, 29, 50, .2); }
+  .compact .agenda-grid { min-height: 275px; }
+  .compact .appointment.a2 { top: 101px; }
+  .compact .appointment.a3 { top: 191px; }
+  .compact .time-labels { grid-template-rows: repeat(5, 55px); }
+
+  @media (max-width: 760px) {
+    .agenda-window { grid-template-columns: 48px 1fr; min-height: 350px; border-radius: 14px; }
+    .agenda-sidebar { padding: 12px 7px; border-radius: 14px 0 0 14px; }
+    .mini-brand { justify-content: center; padding: 0 0 13px; }
+    .mini-brand strong, nav span:not(.active)::after, nav span { font-size: 0; }
+    nav span { justify-content: center; padding: 9px 0; }
+    .sidebar-profile > span:last-child { display: none; }
+    .sidebar-profile { justify-content: center; padding: 8px 0 0; }
+    .avatar { width: 24px; height: 24px; }
+    .agenda-main { padding: 15px 12px; border-radius: 0 14px 14px 0; }
+    .agenda-topbar strong { font-size: 13px; }
+    .agenda-topbar button { min-height: 30px; padding: 0 9px; font-size: 7px; }
+    .agenda-toolbar { margin: 13px 0 9px; }
+    .professional-filter { display: none !important; }
+    .agenda-grid { grid-template-columns: 34px 1fr; min-height: 260px; }
+    .time-labels { grid-template-rows: repeat(5, 52px) !important; }
+    .appointment { grid-template-columns: 28px 1fr; right: 7px; left: 7px; min-height: 50px; padding: 8px; }
+    .appointment em, .team-dots { display: none; }
+    .appointment.a2 { top: 91px; right: 20%; }
+    .appointment.a3 { top: 177px; left: 20%; min-height: 54px; }
+    .product-callout { display: none; }
+  }
+</style>
