@@ -2,12 +2,13 @@
 interface Props {
   compact?: boolean;
   onDark?: boolean;
+  href?: string;
 }
 
-const { compact = false, onDark = false } = Astro.props;
+const { compact = false, onDark = false, href = '#inicio' } = Astro.props;
 ---
 
-<a class:list={['brand', { compact, 'on-dark': onDark }]} href="#inicio" aria-label="Cita Suite, volver al inicio">
+<a class:list={['brand', { compact, 'on-dark': onDark }]} href={href} aria-label="Cita Suite, volver al inicio">
   <img
     class="brand-mark"
     src="/images/logo-cita-suite.png"

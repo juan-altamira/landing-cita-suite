@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Brand from '../components/Brand.astro';
+import Icon from '../components/Icon.astro';
+import '../styles/crm.css';
+---
+
+<BaseLayout
+  title="Panel comercial | Cita Suite"
+  description="Panel privado de sesiones y consultas comerciales de Cita Suite."
+  noindex
+>
+  <main class="crm-page" data-crm-root>
+    <section class="crm-login" data-crm-login>
+      <div class="crm-login-card">
+        <Brand href="/" />
+        <span class="crm-private-badge"><Icon name="shield" size={15} /> Acceso privado</span>
+        <h1>Panel comercial</h1>
+        <p>Ingresá con una cuenta autorizada de Cita Suite.</p>
+        <form data-login-form novalidate>
+          <label for="crm-email">Email</label>
+          <input id="crm-email" name="email" type="email" autocomplete="username" required />
+          <label for="crm-password">Contraseña</label>
+          <input id="crm-password" name="password" type="password" autocomplete="current-password" required />
+          <p class="crm-form-error" data-login-error hidden role="alert"></p>
+          <button class="button button-primary button-large button-block" type="submit">Ingresar</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="crm-app" data-crm-app hidden>
+      <header class="crm-header">
+        <div class="crm-header-inner">
+          <div class="crm-header-brand"><Brand href="/" /><span>Panel comercial</span></div>
+          <div class="crm-account"><span data-account-email></span><button type="button" data-logout>Cerrar sesión</button></div>
+        </div>
+      </header>
+
+      <div class="crm-content">
+        <div class="crm-title-row">
+          <div><span class="crm-eyebrow">Mini CRM + analytics</span><h1>Quién vino, qué le pasa y qué hizo</h1><p data-dashboard-subtitle>Actividad de los últimos 30 días.</p></div>
+          <label class="crm-period">Período
+            <select data-period-filter>
+              <option value="1">Hoy</option>
+              <option value="7">Últimos 7 días</option>
+              <option value="30" selected>Últimos 30 días</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="crm-loading" data-crm-loading aria-live="polite"><span></span> Actualizando información…</div>
+        <div class="crm-global-error" data-crm-error hidden role="alert"></div>
+
+        <section class="metric-grid" aria-label="Métricas principales">
+          <article><span>Cuestionarios completos</span><strong data-metric="completed">—</strong><small data-metric-detail="completed">—</small></article>
+          <article><span>Marca Reserva</span><strong data-metric="reservation">—</strong><small>de cuestionarios completos</small></article>
+          <article><span>Marca Olvidos</span><strong data-metric="reminders">—</strong><small>de cuestionarios completos</small></article>
+          <article><span>Marca Información</span><strong data-metric="information">—</strong><small>de cuestionarios completos</small></article>
+          <article><span>Quiere probar</span><strong data-metric="trial">—</strong><small>de todas las sesiones</small></article>
+          <article><span>Se identifica</span><strong data-metric="identified">—</strong><small>de todas las sesiones</small></article>
+        </section>
+
+        <section class="crm-records">
+          <div class="crm-records-header">
+            <div class="crm-tabs" role="tablist" aria-label="Tipo de visitante">
+              <button type="button" class="active" data-identity-tab="all">Todas</button>
+              <button type="button" data-identity-tab="anonymous">Anónimas</button>
+              <button type="button" data-identity-tab="identified">Leads</button>
+            </div>
+            <span data-results-count>0 resultados</span>
+          </div>
+
+          <div class="crm-filters">
+            <label>Problema
+              <select data-problem-filter>
+                <option value="">Todos</option>
+                <option value="reservation">Reserva</option>
+                <option value="reminders">Olvidos</option>
+                <option value="information">Información</option>
+              </select>
+            </label>
+            <label>Estado comercial
+              <select data-status-filter>
+                <option value="">Todos</option>
+                <option>Nuevo</option>
+                <option>Contactado</option>
+                <option>Demo agendada</option>
+                <option>Probando</option>
+                <option>Cliente</option>
+                <option>No interesado</option>
+              </select>
+            </label>
+            <label class="crm-search">Buscar
+              <input type="search" data-search-filter placeholder="Nombre, teléfono o ID" maxlength="80" />
+            </label>
+          </div>
+
+          <div class="crm-table-wrap">
+            <table>
+              <thead><tr><th>Visitante</th><th>Problemas marcados</th><th>Recorrido</th><th>Origen</th><th>Última actividad</th><th></th></tr></thead>
+              <tbody data-session-rows></tbody>
+            </table>
+            <div class="crm-empty" data-crm-empty hidden><span><Icon name="users" size={26} /></span><h2>No hay resultados con estos filtros</h2><p>Probá ampliar el período o quitar algún filtro.</p></div>
+          </div>
+
+          <div class="crm-pagination">
+            <button type="button" data-page-previous disabled>Anterior</button>
+            <span data-page-label>Página 1</span>
+            <button type="button" data-page-next disabled>Siguiente</button>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="crm-detail-dialog" data-session-dialog aria-labelledby="session-detail-title">
+    <div class="crm-detail-card">
+      <button class="crm-detail-close" type="button" data-session-close aria-label="Cerrar"><Icon name="x" size={21} /></button>
+      <div class="crm-detail-heading"><span data-detail-kind>Sesión</span><h2 id="session-detail-title" data-detail-title>Detalle</h2><p data-detail-subtitle></p></div>
+      <div class="crm-detail-summary" data-detail-summary></div>
+      <div class="crm-status-control" data-status-control hidden>
+        <label for="lead-status">Estado comercial</label>
+        <select id="lead-status" data-lead-status>
+          <option>Nuevo</option><option>Contactado</option><option>Demo agendada</option><option>Probando</option><option>Cliente</option><option>No interesado</option>
+        </select>
+        <span data-status-feedback aria-live="polite"></span>
+      </div>
+      <div class="crm-timeline-heading"><h3>Recorrido</h3><span data-event-count></span></div>
+      <ol class="crm-timeline" data-timeline></ol>
+    </div>
+  </dialog>
+
+  <script>
+    import '../scripts/crm';
+  </script>
+</BaseLayout>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  index: number;
+}
+
+const { index } = Astro.props;
+---
+
+<svg
+  class="diagnostic-mark"
+  data-progress-mark
+  data-index={index}
+  viewBox="0 0 32 36"
+  fill="none"
+  aria-hidden="true"
+>
+  <path d="M9 4v4M23 4v4M7.5 7.5h17a3 3 0 0 1 3 3v10.2c0 6.1-4.2 10.1-11.5 13.3-7.3-3.2-11.5-7.2-11.5-13.3V10.5a3 3 0 0 1 3-3Z" />
+  <path d="M11 14.5h7v7h-7zM27.2 16.2c-4.4 1.8-7.2 5-8.3 9.6M16 34c.3-4.8 2.5-8 6.7-9.7" />
+</svg>

@@ -4,11 +4,13 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
   title = 'Cita Suite | Gestión para consultorios',
-  description = 'Organizá agenda, pacientes, radiografías y comunicación de turnos desde una misma plataforma.'
+  description = 'Organizá agenda, pacientes, archivos y comunicación de turnos desde una misma plataforma.',
+  noindex = false
 } = Astro.props;
 ---
 
@@ -18,6 +20,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow, noarchive" />}
     <meta name="theme-color" content="#ffffff" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
