@@ -3,6 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import AgendaMockup from '../components/AgendaMockup.astro';
 import Brand from '../components/Brand.astro';
 import Icon from '../components/Icon.astro';
+import ProductScreenshot from '../components/ProductScreenshot.astro';
+import teamScreenshot from '../assets/producto-equipo.webp';
+import patientScreenshot from '../assets/producto-paciente.webp';
+import radiographsScreenshot from '../assets/producto-radiografias.webp';
+import remindersScreenshot from '../assets/producto-recordatorios.webp';
 
 const appUrl = 'https://cita-suite.netlify.app/login';
 const supportUrl = 'https://cita-suite.netlify.app/login';
@@ -49,7 +54,7 @@ const tourTabs = [
     title: 'La información empieza por el paciente',
     text: 'Accedé a sus datos, turnos y archivos asociados sin tener que reconstruir la información cada vez que vuelve al consultorio.',
     note: null,
-    image: '/images/producto-paciente.webp'
+    image: patientScreenshot
   },
   {
     id: 'radiografias',
@@ -57,7 +62,7 @@ const tourTabs = [
     title: 'La radiografía queda asociada a quien corresponde',
     text: 'Guardá radiografías y otros archivos junto a la ficha del paciente para encontrarlos cuando realmente los necesitás.',
     note: null,
-    image: '/images/producto-radiografias.webp'
+    image: radiographsScreenshot
   },
   {
     id: 'recordatorios',
@@ -65,7 +70,7 @@ const tourTabs = [
     title: 'El turno no termina cuando lo cargás en la agenda',
     text: 'Cita Suite acompaña el turno con recordatorios y herramientas para confirmar, cancelar o reprogramar sin desordenar el resto de la agenda.',
     note: null,
-    image: '/images/producto-recordatorios.webp'
+    image: remindersScreenshot
   },
   {
     id: 'equipo',
@@ -73,7 +78,7 @@ const tourTabs = [
     title: 'Recepción y profesionales, dentro del mismo sistema',
     text: 'Cada integrante accede con el rol que le corresponde y trabaja sobre información actualizada del consultorio.',
     note: null,
-    image: '/images/producto-equipo.webp'
+    image: teamScreenshot
   }
 ];
 
@@ -155,7 +160,7 @@ const faqs = [
       <div class="hero-decoration hero-decoration-one"></div>
       <div class="hero-decoration hero-decoration-two"></div>
       <div class="container hero-grid">
-        <div class="hero-copy reveal">
+        <div class="hero-copy">
           <div class="eyebrow"><span></span> Software de gestión para consultorios</div>
           <h1>Menos turnos perdidos. <span>Toda la información</span> del consultorio, en un solo lugar.</h1>
           <p class="hero-lead">Organizá agenda, pacientes, radiografías y comunicación de turnos desde una misma plataforma, para que recepción y profesionales trabajen con la misma información.</p>
@@ -166,7 +171,7 @@ const faqs = [
           <p class="assistance-note"><Icon name="sparkles" size={17} /> <span><strong>Configuración asistida disponible.</strong> Si querés, te ayudamos a dejar todo listo.</span></p>
         </div>
 
-        <div class="hero-product reveal reveal-delay">
+        <div class="hero-product">
           <div class="product-label"><span class="live-dot"></span> Vista de agenda</div>
           <AgendaMockup />
         </div>
@@ -254,7 +259,11 @@ const faqs = [
                 </div>
                 <div class:list={['product-frame', { 'agenda-frame': !tab.image }]}>
                   {tab.image ? (
-                    <img src={tab.image} alt={`Captura real de Cita Suite: ${tab.label}`} width="1440" height="1000" loading={index === 0 ? 'eager' : 'lazy'} />
+                    <ProductScreenshot
+                      src={tab.image}
+                      alt={`Captura real de Cita Suite: ${tab.label}`}
+                      sizes="(max-width: 1200px) calc(100vw - 350px), 900px"
+                    />
                   ) : (
                     <AgendaMockup compact />
                   )}
@@ -277,7 +286,7 @@ const faqs = [
                 {tab.note && <p class="tour-note"><Icon name="users" size={16} /> {tab.note}</p>}
                 <div class:list={['product-frame', { 'agenda-frame': !tab.image }]}>
                   {tab.image ? (
-                    <img src={tab.image} alt={`Captura real de Cita Suite: ${tab.label}`} width="1440" height="1000" loading="lazy" />
+                    <ProductScreenshot src={tab.image} alt={`Captura real de Cita Suite: ${tab.label}`} />
                   ) : (
                     <AgendaMockup compact />
                   )}
@@ -293,7 +302,11 @@ const faqs = [
       <div class="container feature-grid">
         <div class="feature-visual reveal">
           <div class="screenshot-wrap screenshot-radiographs">
-            <img src="/images/producto-radiografias.webp" alt="Captura real de radiografías asociadas a la ficha de un paciente en Cita Suite" width="1440" height="1000" loading="lazy" />
+            <ProductScreenshot
+              src={radiographsScreenshot}
+              alt="Captura real de radiografías asociadas a la ficha de un paciente en Cita Suite"
+              sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1200px) 55vw, 680px"
+            />
             <div class="visual-badge"><span><Icon name="file" size={15} /></span> Archivo asociado al paciente</div>
           </div>
         </div>
@@ -326,7 +339,11 @@ const faqs = [
         </div>
         <div class="feature-visual reveal reveal-delay">
           <div class="screenshot-wrap screenshot-reminders">
-            <img src="/images/producto-recordatorios.webp" alt="Captura real de los turnos para recordar en Cita Suite" width="1440" height="1000" loading="lazy" />
+            <ProductScreenshot
+              src={remindersScreenshot}
+              alt="Captura real de los turnos para recordar en Cita Suite"
+              sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1200px) 55vw, 680px"
+            />
             <div class="visual-badge visual-badge-teal"><span><Icon name="message" size={15} /></span> Recordatorio preparado</div>
           </div>
         </div>
@@ -359,7 +376,11 @@ const faqs = [
             </article>
           </div>
           <div class="team-screenshot reveal reveal-delay">
-            <img src="/images/producto-equipo.webp" alt="Captura real de la organización de equipo y roles en Cita Suite" width="1440" height="1000" loading="lazy" />
+            <ProductScreenshot
+              src={teamScreenshot}
+              alt="Captura real de la organización de equipo y roles en Cita Suite"
+              sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1200px) 60vw, 750px"
+            />
           </div>
         </div>
       </div>
@@ -561,17 +582,5 @@ const faqs = [
       });
     });
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
-      document.documentElement.classList.add('reveal-ready');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        });
-      }, { rootMargin: '0px 0px -60px', threshold: 0.08 });
-      document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
-    }
   </script>
 </BaseLayout>

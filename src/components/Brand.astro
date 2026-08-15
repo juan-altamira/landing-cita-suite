@@ -8,7 +8,17 @@ const { compact = false, onDark = false } = Astro.props;
 ---
 
 <a class:list={['brand', { compact, 'on-dark': onDark }]} href="#inicio" aria-label="Cita Suite, volver al inicio">
-  <span class="brand-mark" aria-hidden="true"></span>
+  <img
+    class="brand-mark"
+    src="/images/logo-cita-suite.png"
+    alt=""
+    width="169"
+    height="208"
+    loading={compact ? 'eager' : 'lazy'}
+    decoding={compact ? 'sync' : 'async'}
+    fetchpriority={compact ? 'high' : 'auto'}
+    aria-hidden="true"
+  />
   <span class="brand-name">Cita Suite</span>
 </a>
 
@@ -30,7 +40,7 @@ const { compact = false, onDark = false } = Astro.props;
     flex: none;
     width: 52px;
     height: 52px;
-    background: url('/images/logo-cita-suite.png') center / 145% no-repeat;
+    object-fit: contain;
   }
   .compact .brand-mark { width: 48px; height: 48px; }
 

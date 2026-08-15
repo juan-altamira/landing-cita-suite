@@ -88,6 +88,18 @@ p { color: var(--muted); }
 
 .section { padding: 104px 0; }
 
+main > .section,
+main > .onboarding-section,
+main > .final-cta-section,
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+main > .tour-section { contain-intrinsic-size: auto 980px; }
+main > .faq-section { contain-intrinsic-size: auto 900px; }
+.site-footer { contain-intrinsic-size: auto 420px; }
+
 .section-heading { margin-bottom: 52px; }
 .section-heading.centered { margin-inline: auto; text-align: center; }
 .section-heading.narrow { max-width: 690px; }
@@ -284,7 +296,8 @@ p { color: var(--muted); }
 .tour-note { grid-column: 2; display: flex; align-items: center; gap: 8px; margin: 0; color: var(--ink); font-size: 12px; font-weight: 700; }
 .tour-note svg { color: var(--teal); }
 .product-frame { position: relative; height: 430px; overflow: hidden; border: 1px solid rgba(163,182,204,.26); border-radius: 14px 14px 0 0; background: #0b1b31; box-shadow: 0 23px 52px rgba(15, 37, 65, .18); }
-.product-frame > img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.product-picture { display: block; width: 100%; height: 100%; }
+.product-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .product-frame::before { position: absolute; z-index: 2; top: 9px; left: 12px; width: 5px; height: 5px; border-radius: 50%; color: rgba(255,255,255,.22); background: currentColor; box-shadow: 9px 0 currentColor, 18px 0 currentColor; content: ''; pointer-events: none; }
 .agenda-frame { height: auto; overflow: visible; border: 0; background: transparent; box-shadow: none; }
 .agenda-frame::before { display: none; }
@@ -451,10 +464,6 @@ p { color: var(--muted); }
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-.reveal-ready .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1); }
-.reveal-ready .reveal.revealed { opacity: 1; transform: translateY(0); }
-.reveal-ready .reveal-delay { transition-delay: .12s; }
 
 /* Responsive */
 
