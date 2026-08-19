@@ -5,8 +5,8 @@ import Brand from './Brand.astro';
 import Icon from './Icon.astro';
 import ProductScreenshot from './ProductScreenshot.astro';
 import SuiteMark from './SuiteMark.astro';
-import teamScreenshot from '../assets/producto-equipo.webp';
-import radiographsScreenshot from '../assets/producto-radiografias.webp';
+import teamScreenshot from '../assets/imagen-equipo-consultorio.png';
+import radiographsScreenshot from '../assets/informacion-centralizada-paciente.png';
 import reminderActivated from '../assets/recordatorio-activado.webp';
 import { getLandingCopy, type LandingVariant } from '../content/landing';
 
@@ -120,7 +120,6 @@ const faqs = [
             <a class="button button-primary button-large" href="#como-funciona" data-track-cta="hero-see-how">Ver cómo funciona <Icon name="arrow-right" size={18} /></a>
             <button class="button button-secondary button-large" type="button" data-trial-cta data-cta-location="hero">Quiero probar Cita Suite</button>
           </div>
-          <p class="assistance-note"><Icon name="sparkles" size={17} /> <span><strong>Configuración asistida disponible.</strong> Si querés, te ayudamos a dejar todo listo.</span></p>
         </div>
 
         <div class="hero-product" aria-label="Vista real de la agenda de Cita Suite">
@@ -132,10 +131,10 @@ const faqs = [
 
     <section class="trust-bar" aria-label="Beneficios de implementación">
       <div class="container trust-grid">
-        <div><span><Icon name="check" size={15} strokeWidth={2.5} /></span> Sin instalación</div>
-        <div><span><Icon name="check" size={15} strokeWidth={2.5} /></span> Configuración asistida</div>
-        <div><span><Icon name="check" size={15} strokeWidth={2.5} /></span> Accesos según rol</div>
-        <div><span><Icon name="check" size={15} strokeWidth={2.5} /></span> Soporte directo</div>
+        <div><span><Icon name="sparkles" size={18} strokeWidth={2} /></span><strong>Te lo dejamos listo para usar</strong></div>
+        <div><span><Icon name="shield" size={18} strokeWidth={2} /></span><strong>Elegí quién puede ver y qué puede hacer</strong></div>
+        <div><span><Icon name="message" size={18} strokeWidth={2} /></span><strong>Te ayudamos cuando lo necesites</strong></div>
+        <div><span><Icon name="check" size={18} strokeWidth={2.4} /></span><strong>Sin instalación</strong></div>
       </div>
     </section>
 
@@ -206,7 +205,7 @@ const faqs = [
               >
                 <source data-src="/media/reserva-turno-v1.mp4" type="video/mp4" />
               </video>
-              <button class="demo-play" type="button" data-video-toggle>
+              <button class="demo-play" type="button" aria-pressed="false" data-video-toggle>
                 <span aria-hidden="true">▶</span><span data-video-label>Ver demostración</span>
               </button>
             </div>
@@ -385,7 +384,6 @@ const faqs = [
             <p>Para organizar el trabajo de tu consultorio desde una misma plataforma.</p>
           </div>
           <div class="price"><span>ARS</span><strong>50.000</strong><small>/ mes</small></div>
-          <p class="price-context">Precio mensual por consultorio.</p>
           <div class="included-list">
             <span><i><Icon name="check" size={14} strokeWidth={2.5} /></i> Agenda y turnos</span>
             <span><i><Icon name="check" size={14} strokeWidth={2.5} /></i> Reserva autónoma de pacientes</span>
@@ -440,7 +438,7 @@ const faqs = [
       <div><h3>Contacto</h3><button type="button" data-trial-cta data-cta-location="footer">Quiero probar Cita Suite</button><a href="#preguntas">Preguntas frecuentes</a><a href={instagramUrl} target="_blank" rel="noreferrer">Instagram</a></div>
       <div><h3>Legal</h3><a href="https://cita-suite.netlify.app/privacidad">Privacidad</a><a href="https://cita-suite.netlify.app/terminos">Términos y condiciones</a><a href="#seguridad">Seguridad</a></div>
     </div>
-    <div class="container footer-bottom"><span>© 2026 Cita Suite</span><span>Hecho para el trabajo real del consultorio.</span></div>
+    <div class="container footer-bottom"><span>© 2026 Cita Suite</span></div>
   </footer>
 
   <dialog class="trial-dialog" data-trial-dialog aria-labelledby="trial-title">

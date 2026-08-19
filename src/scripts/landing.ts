@@ -486,48 +486,95 @@ if ('IntersectionObserver' in window) {
 const video = document.querySelector<HTMLVideoElement>('[data-lazy-video]');
 const videoToggle = document.querySelector<HTMLButtonElement>('[data-video-toggle]');
 const videoLabel = videoToggle?.querySelector<HTMLElement>('[data-video-label]');
+const videoShell = video?.closest<HTMLElement>('.microdemo-wrap') ?? video;
+const dataSaverEnabled = Boolean(
+  (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData
+);
+const automaticVideoPlayback = !reducedMotion && !dataSaverEnabled;
+let videoIntersectionRatio = 0;
+let automaticPlaybackActive = false;
+let manualPlaybackActive = false;
+let videoPausedByUser = false;
 
-function prepareVideo(shouldPlay: boolean) {
-  if (!video || video.dataset.loaded === 'true') {
-    if (shouldPlay) fireAndForget(video?.play() ?? Promise.resolve());
-    return;
-  }
+function prepareVideo() {
+  if (!video || video.dataset.loaded === 'true') return;
   video.querySelectorAll<HTMLSourceElement>('source[data-src]').forEach((source) => {
     source.src = source.dataset.src ?? '';
   });
   video.dataset.loaded = 'true';
+  video.preload = 'auto';
   video.load();
-  if (shouldPlay) video.addEventListener('canplay', () => fireAndForget(video.play()), { once: true });
 }
 
-if (video && 'IntersectionObserver' in window) {
-  const videoObserver = new IntersectionObserver((entries) => {
+function videoPlaybackIsBlocked() {
+  return document.hidden || Boolean(document.querySelector<HTMLDialogElement>('[data-trial-dialog][open]'));
+}
+
+function syncVideoPlayback() {
+  if (!video) return;
+  const manualPlaybackRequested = manualPlaybackActive && videoIntersectionRatio > 0;
+  const automaticPlaybackRequested = automaticVideoPlayback && automaticPlaybackActive && !videoPausedByUser;
+  const shouldPlay = !videoPlaybackIsBlocked() && (manualPlaybackRequested || automaticPlaybackRequested);
+
+  if (!shouldPlay) {
+    if (!video.paused) video.pause();
+    return;
+  }
+
+  prepareVideo();
+  fireAndForget(video.play());
+}
+
+if (video && videoShell && 'IntersectionObserver' in window) {
+  const preloadObserver = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting)) return;
-    prepareVideo(!reducedMotion);
-    videoObserver.disconnect();
-  }, { rootMargin: '320px 0px' });
-  videoObserver.observe(video);
+    if (automaticVideoPlayback) prepareVideo();
+    preloadObserver.disconnect();
+  }, { rootMargin: '500px 0px' });
+
+  const playbackObserver = new IntersectionObserver((entries) => {
+    const entry = entries[0];
+    if (!entry) return;
+
+    videoIntersectionRatio = entry.isIntersecting ? entry.intersectionRatio : 0;
+    if (videoIntersectionRatio >= 0.58) automaticPlaybackActive = true;
+    if (videoIntersectionRatio <= 0.18) automaticPlaybackActive = false;
+    syncVideoPlayback();
+  }, { threshold: [0, 0.18, 0.58] });
+
+  preloadObserver.observe(videoShell);
+  playbackObserver.observe(videoShell);
 }
 
 video?.addEventListener('play', () => {
   if (videoToggle) videoToggle.dataset.playing = 'true';
+  videoToggle?.setAttribute('aria-pressed', 'true');
   if (videoLabel) videoLabel.textContent = 'Pausar demostración';
 });
 
 video?.addEventListener('pause', () => {
   if (videoToggle) delete videoToggle.dataset.playing;
+  videoToggle?.setAttribute('aria-pressed', 'false');
   if (videoLabel) videoLabel.textContent = 'Ver demostración';
 });
 
 videoToggle?.addEventListener('click', () => {
   if (!video) return;
   if (video.paused) {
-    prepareVideo(true);
+    videoPausedByUser = false;
+    manualPlaybackActive = true;
+    prepareVideo();
+    fireAndForget(video.play());
     fireAndForget(recordEvent('video_played', { section: 'reservation' }));
   } else {
+    videoPausedByUser = true;
+    manualPlaybackActive = false;
     video.pause();
   }
 });
+
+document.addEventListener('visibilitychange', syncVideoPlayback);
+window.addEventListener('pagehide', () => video?.pause());
 
 const trialDialog = document.querySelector<HTMLDialogElement>('[data-trial-dialog]');
 const leadForm = trialDialog?.querySelector<HTMLFormElement>('[data-lead-form]');
@@ -559,11 +606,13 @@ document.querySelectorAll<HTMLButtonElement>('[data-trial-cta]').forEach((button
     fireAndForget(recordEvent('trial_intent', { cta: trialCtaLocation }));
     if (!trialDialog) return;
     trialDialog.showModal();
+    syncVideoPlayback();
     window.setTimeout(() => nameInput?.focus(), 60);
   });
 });
 
 trialDialog?.querySelector<HTMLButtonElement>('[data-dialog-close]')?.addEventListener('click', () => trialDialog.close());
+trialDialog?.addEventListener('close', syncVideoPlayback);
 trialDialog?.addEventListener('click', (event) => {
   if (event.target === trialDialog) trialDialog.close();
 });
