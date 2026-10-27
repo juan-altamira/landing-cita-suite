@@ -16,7 +16,8 @@ interface Props {
 
 const { variant = 'general' } = Astro.props;
 const copy = getLandingCopy(variant);
-const appUrl = 'https://cita-suite.netlify.app/login';
+const appOrigin = 'https://app.cita-suite.com.ar';
+const appUrl = `${appOrigin}/login`;
 const instagramUrl = 'https://www.instagram.com/citasuite?igsh=eHExeHhxcmllMzhh&igsi=eHExeHhxcmllMzhh';
 
 const questions = [
@@ -365,7 +366,7 @@ const faqs = [
           <article class="reveal"><span>02</span><h3>Información centralizada</h3><p>Pacientes, turnos y archivos dejan de depender de cuentas o dispositivos personales dispersos.</p></article>
           <article class="reveal"><span>03</span><h3>Control del consultorio</h3><p>La administración mantiene organizado quién forma parte del equipo y cómo trabaja dentro de Cita Suite.</p></article>
         </div>
-        <a class="text-link" href="https://cita-suite.netlify.app/privacidad">Privacidad y seguridad <Icon name="arrow-right" size={16} /></a>
+        <a class="text-link" href={`${appOrigin}/privacidad`}>Privacidad y seguridad <Icon name="arrow-right" size={16} /></a>
       </div>
     </section>
 
@@ -436,7 +437,7 @@ const faqs = [
       <div class="footer-brand"><Brand /><p>Gestión para consultorios.</p></div>
       <div><h3>Producto</h3><a href="#soluciones">Funciones</a><a href="#como-funciona">Cómo funciona</a><a href="#precio">Precio</a></div>
       <div><h3>Contacto</h3><button type="button" data-trial-cta data-cta-location="footer">Quiero probar Cita Suite</button><a href="#preguntas">Preguntas frecuentes</a><a href={instagramUrl} target="_blank" rel="noreferrer">Instagram</a></div>
-      <div><h3>Legal</h3><a href="https://cita-suite.netlify.app/privacidad">Privacidad</a><a href="https://cita-suite.netlify.app/terminos">Términos y condiciones</a><a href="#seguridad">Seguridad</a></div>
+      <div><h3>Legal</h3><a href={`${appOrigin}/privacidad`}>Privacidad</a><a href={`${appOrigin}/terminos`}>Términos y condiciones</a><a href="#seguridad">Seguridad</a></div>
     </div>
     <div class="container footer-bottom"><span>© 2026 Cita Suite</span></div>
   </footer>
