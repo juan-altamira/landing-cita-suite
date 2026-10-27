@@ -16,7 +16,8 @@ npm run build   # genera dist/
 `cita-suite.com.ar` se sirve desde Cloudflare Workers: el Worker `cita-suite-landing` sólo
 contiene los archivos de `dist/` (sin código propio, así que no consume la cuota diaria de
 Workers) y su dominio está declarado en `wrangler.jsonc`. `public/_headers` define los
-encabezados de seguridad y caché.
+encabezados de seguridad y caché, y `public/_redirects` lleva `/login`, `/privacidad` y
+`/terminos` a la aplicación (en Vercel lo hace `vercel.json`).
 
 ```sh
 npm run build

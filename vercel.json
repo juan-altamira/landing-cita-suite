@@ -1,4 +1,9 @@
 {
+  "redirects": [
+    { "source": "/login", "destination": "https://app.cita-suite.com.ar/login", "permanent": true },
+    { "source": "/privacidad", "destination": "https://app.cita-suite.com.ar/privacidad", "permanent": true },
+    { "source": "/terminos", "destination": "https://app.cita-suite.com.ar/terminos", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/media/(.*)",
